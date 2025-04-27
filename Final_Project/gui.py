@@ -300,15 +300,25 @@ class CheckersGUI:
     
     def ai_move(self):
         """Execute AI move."""
+        if self.game_logic.game_over:
+            return
+        
+        # Update status to show AI's turn before computing the move
+        self.update_status()
+        # Force GUI update to ensure the status label is refreshed immediately
+        self.master.update()
+        
         move = self.game_logic.ai_move()
         if move:
             from_row, from_col, to_row, to_col = move
             self.game_logic.make_move(from_row, from_col, to_row, to_col, "AI")
             self.draw_board()
-        else:
-            self.game_logic.current_player = "player"
+            # Update status after the move to reflect the new current player (usually player)
             self.update_status()
-    
+        else:
+            # If no move is possible, AI has no valid moves; game should end
+            self.game_logic.check_game_over()
+            self.update_status()
     def update_status(self):
         """Update status label."""
         if self.game_logic.game_over:

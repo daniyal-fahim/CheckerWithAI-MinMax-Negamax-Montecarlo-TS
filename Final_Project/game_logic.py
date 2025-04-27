@@ -168,11 +168,11 @@ class CheckersLogic:
         
         if not player_has_pieces:
             self.game_over = True
-            messagebox.showinfo("Game Over", f"AI wins! {self.player_name} has no pieces left.")
+            messagebox.showinfo("Game Over", "AI wins! You have no pieces left.")  # Updated message
             return
         if not ai_has_pieces:
             self.game_over = True
-            messagebox.showinfo("Game Over", f"{self.player_name} wins! AI has no pieces left.")
+            messagebox.showinfo("Game Over", "You win! AI has no pieces left.")  # Updated message
             return
         
         if self.current_player == "player":
@@ -181,7 +181,8 @@ class CheckersLogic:
                                 if self.board[r][c] in (1, 3))
             if not has_valid_move:
                 self.game_over = True
-                messagebox.showinfo("Game Over", f"AI wins! {self.player_name} has no valid moves.")
+                messagebox.showinfo("Game Over", "AI wins! You have no valid moves.")  # Updated message
+                return
         
         elif self.current_player == "ai":
             has_valid_move = any(self.get_valid_moves(r, c)
@@ -189,4 +190,5 @@ class CheckersLogic:
                                 if self.board[r][c] in (2, 4))
             if not has_valid_move:
                 self.game_over = True
-                messagebox.showinfo("Game Over", f"{self.player_name} wins! AI has no valid moves.")
+                messagebox.showinfo("Game Over", "You win! AI has no valid moves.")  # Updated message
+                return
